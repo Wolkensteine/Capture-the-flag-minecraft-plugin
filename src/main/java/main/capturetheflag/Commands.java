@@ -31,6 +31,11 @@ public class Commands implements CommandExecutor {
                         } else {
                             switch (args[1].toLowerCase()) {
                                 case "map":
+                                    if (args.length < 3) {
+                                        return false;
+                                    } else {
+                                        Variables.currentMap = new Map(Integer.parseInt(args[2]));
+                                    }
                                     break;
                                 case "flagspot":
                                     break;

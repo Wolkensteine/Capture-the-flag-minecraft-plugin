@@ -32,10 +32,8 @@ public class Map {
     // The following variable stores the player objects of all players online at game start, which wanted to participate in the game
     private Player[] participatingPlayers;
 
-    public Map (int team_count, Player[] players) {
-        flags = new Flag[team_count];
+    public Map (int team_count) {
         teams = new GameTeam[team_count];
-        participatingPlayers = players;
     }
 
     public boolean isPlayerParticipating(Player player) {
