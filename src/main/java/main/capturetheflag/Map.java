@@ -32,8 +32,15 @@ public class Map {
     // The following variable stores the player objects of all players online at game start, which wanted to participate in the game
     private Player[] participatingPlayers;
 
-    public Map (int team_count) {
+    private String name; // Name of the map, makes it easier to interact with when using commands
+
+    public Map (int team_count, String map_name, int[] beginning, int[] end) {
         teams = new GameTeam[team_count];
+        name = map_name;
+    }
+
+    public Player[] getParticipatingPlayers() {
+        return participatingPlayers;
     }
 
     public boolean isPlayerParticipating(Player player) {
@@ -43,6 +50,13 @@ public class Map {
             }
         }
         return false;
+    }
+
+    public void addPlayerAsParticipator(Player player) {
+        Player[] tmp = new Player[participatingPlayers.length + 1];
+        System.arraycopy(participatingPlayers, 0, tmp, 0, participatingPlayers.length);
+        tmp[participatingPlayers.length] = player;
+        participatingPlayers = tmp;
     }
 
     public void addFlags(Flag[] created_flags) {
@@ -96,12 +110,21 @@ public class Map {
     public boolean isBlockInMap(Block block) {
         if (begins[0] <= block.getX() && block.getX() >= ends[0]) {
             if (begins[1] <= block.getY() && block.getY() >= ends[1]) {
-                if (begins[2] <= block.getZ() && block.getZ() >= ends[2]) {
-                    return true;
-                }
+                return begins[2] <= block.getZ() && block.getZ() >= ends[2];
             }
         }
         return false;
+    }
+
+    public void tpPlayersToStart() {
+        // TODO create a way to teleport everyone to their start position
+    }
+
+    public void fillLootChests() {
+        // TODO call fillchest() on all lootchests
+        for (LootChest lootchest : lootchests) {
+            lootchest.fillchest();
+        }
     }
 
 }
