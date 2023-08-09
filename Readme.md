@@ -1,5 +1,3 @@
-![Lines of code](https://img.shields.io/tokei/lines/github.com/Wolkensteine/Capture-the-flag-minecraft-plugin)
-
 # Capture the flag minecraft plugin
 
 This is a small capture the flag plugin.
