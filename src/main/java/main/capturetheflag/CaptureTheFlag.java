@@ -14,4 +14,5 @@ public final class CaptureTheFlag extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
 }

@@ -1,4 +1,5 @@
 package main.capturetheflag;
+import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 
 public class Map {
@@ -91,6 +92,18 @@ public class Map {
             }
         }
         return teams[0];
+    }
+
+    // A method to check if a block is part of the map
+    public boolean isBlockInMap(Block block) {
+        if (begins[0] <= block.getX() && block.getX() >= ends[0]) {
+            if (begins[1] <= block.getY() && block.getY() >= ends[1]) {
+                if (begins[2] <= block.getZ() && block.getZ() >= ends[2]) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
