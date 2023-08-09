@@ -12,8 +12,27 @@ public class Map {
     private int[] begins;
     private int[] ends;
 
+    // This is an array of flags, which internally store which team they're for and where they are placed
+    // TODO create class Flag
+    private Flag[] flags;
+
+    // The following array saves the different places where a flag can be placed, the home spots as well as the ones where they're placed when captured
+    // TODO create FlagSpot class
+    private FlagSpot[] flagSpots;
+
+    // The following array stores the teams which internally store data about the players, colour and so on
+    // TODO create class GameTeam
+    private GameTeam[] teams;
+
+    // The following array stores the positions of loot-chests which have to be filled before starting the game with items
+    private LootChest[] lootchests;
+
     public Map () {
 
+    }
+
+    public Flag getFlag(int index) {
+        return flags[index];
     }
 
 }
