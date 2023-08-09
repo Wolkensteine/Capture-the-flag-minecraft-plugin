@@ -1,4 +1,8 @@
 name: CaptureTheFlag
-version: '${project.version}'
+version: '0.0.1'
 main: main.capturetheflag.CaptureTheFlag
 api-version: 1.20
+commands:
+  CTF:
+    description: Capture the flag command
+    usage: /<command>
