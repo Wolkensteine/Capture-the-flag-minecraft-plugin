@@ -1,4 +1,5 @@
 package main.capturetheflag;
+import org.bukkit.entity.*;
 
 public class Map {
 
@@ -27,12 +28,56 @@ public class Map {
     // The following array stores the positions of loot-chests which have to be filled before starting the game with items
     private LootChest[] lootchests;
 
-    public Map () {
-
+    public Map (int team_count) {
+        flags = new Flag[team_count];
+        teams = new GameTeam[team_count];
     }
 
+    public void addFlags(Flag[] created_flags) {
+        flags = created_flags;
+    }
+
+    public void replaceTeamObject(int team_index, GameTeam new_team) {
+        teams[team_index] = new_team;
+    }
+
+    public void addFlagSpot(int[] coords, String type, GameTeam team) {
+        FlagSpot[] tmp = new FlagSpot[flagSpots.length + 1];
+        System.arraycopy(flagSpots, 0, tmp, 0, flagSpots.length);
+        tmp[flagSpots.length] = new FlagSpot(coords, team, type);
+        flagSpots = tmp;
+    }
+
+    public boolean isFlagSpot(int[] coords) {
+        boolean tmp = false;
+        for (FlagSpot flagSpot : flagSpots) {
+            if (flagSpot.getCoords() == coords) {
+                tmp = true;
+            }
+        }
+        return tmp;
+    }
+
+    // Get a flag object
     public Flag getFlag(int index) {
         return flags[index];
+    }
+
+    // Check if a player is in a team without needing the team object
+    public boolean inPlayerInTeam(Player player, int team_index) {
+        return teams[team_index].isPlayerMember(player);
+    }
+
+    // Get the team a player is assigned to
+    // Attention! When the player is not assigned to a team returns team0
+    // TODO make sure every player is assigned to a team. Players who join later need to be assigned to a spectator team or so
+    public GameTeam getPlayersTeam(Player player) {
+        for (GameTeam team : teams) {
+            if (team.isPlayerMember(player)) {
+                return team;
+            }
+        }
+        return teams[0];
     }
 
 }
