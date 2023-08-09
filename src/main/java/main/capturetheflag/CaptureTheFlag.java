@@ -1,13 +1,13 @@
 package main.capturetheflag;
 
+import main.capturetheflag.listeners.BlockEventListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CaptureTheFlag extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-
+        getServer().getPluginManager().registerEvents(new BlockEventListener(), this);
     }
 
     @Override
