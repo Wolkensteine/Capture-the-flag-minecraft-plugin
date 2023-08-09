@@ -28,9 +28,22 @@ public class Map {
     // The following array stores the positions of loot-chests which have to be filled before starting the game with items
     private LootChest[] lootchests;
 
-    public Map (int team_count) {
+    // The following variable stores the player objects of all players online at game start, which wanted to participate in the game
+    private Player[] participatingPlayers;
+
+    public Map (int team_count, Player[] players) {
         flags = new Flag[team_count];
         teams = new GameTeam[team_count];
+        participatingPlayers = players;
+    }
+
+    public boolean isPlayerParticipating(Player player) {
+        for (Player participatingPlayer : participatingPlayers) {
+            if (participatingPlayer == player) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void addFlags(Flag[] created_flags) {
@@ -70,7 +83,7 @@ public class Map {
 
     // Get the team a player is assigned to
     // Attention! When the player is not assigned to a team returns team0
-    // TODO make sure every player is assigned to a team. Players who join later need to be assigned to a spectator team or so
+    // This should not be a problem, when checking before if a player is playing the game.
     public GameTeam getPlayersTeam(Player player) {
         for (GameTeam team : teams) {
             if (team.isPlayerMember(player)) {
