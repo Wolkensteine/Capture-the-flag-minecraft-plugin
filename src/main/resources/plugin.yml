@@ -1,0 +1,4 @@
+name: CaptureTheFlag
+version: '${project.version}'
+main: main.capturetheflag.CaptureTheFlag
+api-version: 1.20
