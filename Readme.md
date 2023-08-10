@@ -19,8 +19,9 @@ Sets second position for map creation
 
 ### map
 create a map<br>
-parameters: team, name<br>
-requirements: valid first and second pisition, both parameters set
+parameters: team count, name<br>
+requirements: valid first and second pisition, both parameters set<br>
+note: team count must be a value between 2 and 4
 <br>
 
 ### flagspot

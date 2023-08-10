@@ -2,6 +2,7 @@ package main.capturetheflag;
 
 import com.google.errorprone.annotations.Var;
 import main.utils.Variables;
+import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -91,16 +92,37 @@ public class Commands implements CommandExecutor {
                                     // Checks if all argument team is set
                                     // If team left empty it will be assumed as a spectators spawn
                                     if (args.length < 3) {
-                                        // TODO create a spawnpoint
+                                        int[] tmp = {(int) player.getLocation().getX(), (int) player.getLocation().getY(), (int) player.getLocation().getZ()};
+                                        Variables.currentMap.createSpawn(tmp);
                                     } else {
-                                        // TODO create a spawnpoint
+                                        String tmp = args[2].toLowerCase();
+                                        int[] tmp2 = {(int) player.getLocation().getX(), (int) player.getLocation().getY(), (int) player.getLocation().getZ()};
+                                        switch (tmp) {
+                                            case "red":
+                                                Variables.currentMap.createSpawn(tmp2, Color.RED);
+                                                break;
+                                            case "blue":
+                                                Variables.currentMap.createSpawn(tmp2, Color.BLUE);
+                                                break;
+                                            case "green":
+                                                Variables.currentMap.createSpawn(tmp2, Color.GREEN);
+                                                break;
+                                            case "orange":
+                                                Variables.currentMap.createSpawn(tmp2, Color.ORANGE);
+                                                break;
+                                        }
                                     }
                                     break;
                             }
                         }
                         break;
                     case "start":
+                        // Call the kit promt for all players that used the participate command
                         KitSelection.kitpromt(Variables.currentMap.getParticipatingPlayers());
+                        // TODO start the game
+                        // Teleport all players to their startpositions
+                        // Give a random player of each team the flag of that team to place down
+                        // Fill loot chests
                         break;
                     case "participate":
                         Variables.currentMap.addPlayerAsParticipator(player);

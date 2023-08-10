@@ -1,6 +1,7 @@
 package main.utils;
 
 import main.capturetheflag.Map;
+import org.bukkit.Color;
 
 public class Variables {
 

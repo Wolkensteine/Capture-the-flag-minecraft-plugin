@@ -6,16 +6,18 @@ import org.bukkit.entity.Player;
 public class GameTeam {
 
     // The following variable stores the members of a team
-    private final Player[] members;
+    private Player[] members;
 
     // Defines the team colour
     private final Color color;
 
-    public GameTeam (Color team_color, Player[] team_members) {
-        // Assigning values to the variables
-        // The team members will be either randomly assigned on game start or via a game command
+    public GameTeam (Color team_color) {
         color = team_color;
-        members = team_members;
+    }
+
+    // When starting the game this will be used to add the players to the teams
+    public void addPlayers(Player[] players) {
+        members = players;
     }
 
     public Color getColor() {

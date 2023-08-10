@@ -1,4 +1,8 @@
 package main.capturetheflag;
+import com.google.errorprone.annotations.Var;
+import main.utils.Constants;
+import main.utils.Variables;
+import org.bukkit.Color;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 
@@ -34,9 +38,52 @@ public class Map {
 
     private String name; // Name of the map, makes it easier to interact with when using commands
 
+    private SpawnLocation[] spawns;
+
     public Map (int team_count, String map_name, int[] beginning, int[] end) {
+        // Maximum supported teams is 4 so when trying to generate more return
+        // Also return when less than 2 teams would be generated
+        if (team_count > 4 || team_count < 2) {
+            return;
+        }
+
         teams = new GameTeam[team_count];
         name = map_name;
+        begins = beginning;
+        ends = end;
+        spawns = new SpawnLocation[team_count + 1];
+
+        for (int i = 0; i < teams.length; i++) {
+            teams[i] = new GameTeam(Constants.teamColors[i]);
+        }
+    }
+
+    public SpawnLocation getSpectatorSpawn() {
+        return spawns[spawns.length - 1];
+    }
+
+    public SpawnLocation getTeamsSpawn(GameTeam team) {
+        for (int i = 0; i < spawns.length - 1; i++) {
+            if (spawns[i].getTeam() == team) {
+                return spawns[i];
+            }
+        }
+        return null;
+    }
+
+    // Create a spawn for a team with teams color
+    public void createSpawn(int[] coords, Color teamColor) {
+        for (int i = 0; i < spawns.length - 1; i++) {
+            if (Constants.teamColors[i] == teamColor) {
+                spawns[i] = new SpawnLocation(coords, teams[i]);
+                break;
+            }
+        }
+    }
+
+    public void createSpawn(int[] coords) {
+        // Create spectators spawn
+        spawns[spawns.length - 1] = new SpawnLocation(coords);
     }
 
     public Player[] getParticipatingPlayers() {
@@ -95,15 +142,14 @@ public class Map {
     }
 
     // Get the team a player is assigned to
-    // Attention! When the player is not assigned to a team returns team0
-    // This should not be a problem, when checking before if a player is playing the game.
+    // Attention! When the player is not assigned to a team returns null
     public GameTeam getPlayersTeam(Player player) {
         for (GameTeam team : teams) {
             if (team.isPlayerMember(player)) {
                 return team;
             }
         }
-        return teams[0];
+        return null;
     }
 
     // A method to check if a block is part of the map
