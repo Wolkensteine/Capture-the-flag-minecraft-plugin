@@ -11,7 +11,7 @@ public class Variables {
     public static Map[] maps; // All the maps there are
 
     // The following variables are set via a command and will be used to create a map.
-    public static int[] pos1; // Selectable position 1
-    public static int[] pos2; // Selectable position 2
+    public static int[] pos1 = new int[3]; // Selectable position 1
+    public static int[] pos2 = new int[3]; // Selectable position 2
 
 }
