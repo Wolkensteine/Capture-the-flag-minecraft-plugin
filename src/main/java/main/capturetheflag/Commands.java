@@ -12,9 +12,7 @@ public class Commands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
-            if (args.length < 1) {
-                return false;
-            } else {
+            if (args.length >= 1) {
                 Player player = (Player) sender;
                 switch (args[0].toLowerCase()) {
                     case "pos1":
@@ -23,14 +21,14 @@ public class Commands implements CommandExecutor {
                         Variables.pos1[1] = (int) player.getLocation().getY();
                         Variables.pos1[2] = (int) player.getLocation().getZ();
                         player.sendMessage("Set position 1 to: " + Variables.pos1[0] + " " + Variables.pos1[1] + " " + Variables.pos1[2]);
-                        break;
+                        return true;
                     case "pos2":
                         // Set the second position for creating a map
                         Variables.pos2[0] = (int) player.getLocation().getX();
                         Variables.pos2[1] = (int) player.getLocation().getY();
                         Variables.pos2[2] = (int) player.getLocation().getZ();
                         player.sendMessage("Set position 2 to: " + Variables.pos2[0] + " " + Variables.pos2[1] + " " + Variables.pos2[2]);
-                        break;
+                        return true;
                     case "create":
                         // Create something
                         if (args.length < 2) {
@@ -73,6 +71,7 @@ public class Commands implements CommandExecutor {
                                                 Variables.maps = tmp;
                                                 player.sendMessage("You have created the " + Variables.maps.length + " map.");
                                             }
+                                            return true;
                                         } else {
                                             // Pos1 and Pos2 are not set
                                             player.sendMessage("You need to first define the volume of the map by using '/CTF pos1' and '/CTF pos2' in the corners of the volume.");
@@ -86,10 +85,10 @@ public class Commands implements CommandExecutor {
                                     } else {
                                         // TODO create a flag spot
                                     }
-                                    break;
+                                    return true;
                                 case "lootchest":
                                     // TODO create a loot-chest
-                                    break;
+                                    return true;
                                 case "spawnpoint":
                                     // Checks if all argument team is set
                                     // If team left empty it will be assumed as a spectators spawn
@@ -102,16 +101,16 @@ public class Commands implements CommandExecutor {
                                         switch (tmp) {
                                             case "red":
                                                 Variables.currentMap.createSpawn(tmp2, Color.RED);
-                                                break;
+                                                return true;
                                             case "blue":
                                                 Variables.currentMap.createSpawn(tmp2, Color.BLUE);
-                                                break;
+                                                return true;
                                             case "green":
                                                 Variables.currentMap.createSpawn(tmp2, Color.GREEN);
-                                                break;
+                                                return true;
                                             case "orange":
                                                 Variables.currentMap.createSpawn(tmp2, Color.ORANGE);
-                                                break;
+                                                return true;
                                         }
                                     }
                                     break;
@@ -125,15 +124,16 @@ public class Commands implements CommandExecutor {
                         // Teleport all players to their startpositions
                         // Give a random player of each team the flag of that team to place down
                         // Fill loot chests
-                        break;
+                        return true;
                     case "participate":
                         Variables.currentMap.addPlayerAsParticipator(player);
                         player.sendMessage("You are now waiting for the game to start.");
-                        break;
+                        return true;
                     default:
                         return false;
                 }
             }
+            return false;
         } else {
             sender.sendMessage("Only players can execute this command!");
         }
