@@ -4,5 +4,5 @@ main: main.capturetheflag.CaptureTheFlag
 api-version: '1.20'
 commands:
   CTF:
-    description: Capture the flag command
+    description: Capture the flag command, for more info look at github.com/Wolkensteine/Capture-the-flag-minecraft-plugin
     usage: /<command>

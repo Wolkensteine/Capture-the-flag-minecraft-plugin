@@ -22,12 +22,14 @@ public class Commands implements CommandExecutor {
                         Variables.pos1[0] = (int) player.getLocation().getX();
                         Variables.pos1[1] = (int) player.getLocation().getY();
                         Variables.pos1[2] = (int) player.getLocation().getZ();
+                        player.sendMessage("Set position 1 to: " + Variables.pos1[0] + " " + Variables.pos1[1] + " " + Variables.pos1[2]);
                         break;
                     case "pos2":
                         // Set the second position for creating a map
                         Variables.pos2[0] = (int) player.getLocation().getX();
                         Variables.pos2[1] = (int) player.getLocation().getY();
                         Variables.pos2[2] = (int) player.getLocation().getZ();
+                        player.sendMessage("Set position 2 to: " + Variables.pos2[0] + " " + Variables.pos2[1] + " " + Variables.pos2[2]);
                         break;
                     case "create":
                         // Create something
@@ -126,6 +128,7 @@ public class Commands implements CommandExecutor {
                         break;
                     case "participate":
                         Variables.currentMap.addPlayerAsParticipator(player);
+                        player.sendMessage("You are now waiting for the game to start.");
                         break;
                     default:
                         return false;
